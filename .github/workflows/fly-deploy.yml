@@ -1,0 +1,88 @@
+name: flyctl Deploy (Prod + PRs)
+
+on:
+  # push:
+  #   branches:
+  #     - main
+  #
+  pull_request_target:
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: fly-pr-${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v6
+        with:
+          path: pr
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Checkout base (for config)
+        uses: actions/checkout@v6
+        with:
+          path: base
+          ref: ${{ github.event.pull_request.base.sha }}
+
+      - name: Setup Flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      # - name: Deploy Production
+      #   if: github.ref == 'refs/heads/main'
+      #  env:
+      #    FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      #   run: |
+      #     flyctl deploy --app comfsim --remote-only
+      #
+      - name: Set PR app name
+        if: github.event_name == 'pull_request_target' && github.event.action != 'closed'
+        run: echo "APP_NAME=comfsim-pr-${{ github.event.number }}" >> $GITHUB_ENV
+
+      - name: Deploy PR Preview
+        if: github.event_name == 'pull_request_target' && github.event.action != 'closed'
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        run: |
+          BASE_DIR=$GITHUB_WORKSPACE/base
+          PR_DIR=$GITHUB_WORKSPACE/pr
+
+          flyctl apps create "$APP_NAME" || true
+
+          flyctl deploy \
+            --app $APP_NAME \
+            --remote-only \
+            --dockerfile "$BASE_DIR/Dockerfile" \
+            --config "$BASE_DIR/fly.toml" \
+            "$PR_DIR"
+
+          # curl -fsS --retry 5 --retry-delay 2 https://$APP_NAME.fly.dev || exit 1
+
+      - name: Maintain comment
+        uses: actions-cool/maintain-one-comment@v3.2.1
+        if: ${{ github.event_name == 'pull_request_target' }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ github.event.number }}
+          body: |
+            <!-- Created by actions-cool/maintain-one-comment -->
+            Preview deployed: https://comfsim-pr-${{ github.event.number }}.fly.dev  
+            To try out the changes hop onto https://gcsim.app/simulator and, within Settings, enable Server Mode with the URL above as the Server URL.
+          body-include: '<!-- Created by actions-cool/maintain-one-comment -->'
+          update-mode: 'replace'
+
+      - name: Destroy PR app
+        if: github.event_name == 'pull_request_target' && github.event.action == 'closed'
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        run: |
+          flyctl apps destroy comfsim-pr-${{ github.event.number }} --yes || true

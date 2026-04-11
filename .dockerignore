@@ -1,0 +1,363 @@
+# flyctl launch added from .gitignore
+**/*.log
+**/*.csv
+**/*.exe
+**/*.pdf
+**/*.pprof
+**/.DS_Store
+*.txt
+**/*.out
+!**/.keep
+**/out.json
+**/debug.html
+**/internal/characters/replace.txt
+**/.idea
+**/*.wasm
+**/**.zip
+**/cmd/gcsim/*.exe
+**/cmd/gcsim/gsim.exe
+**/cmd/gcsim/gsim
+**/cmd/gcsim/*.html
+**/cmd/gcsim/tests
+**/cmd/gcsim/*.gz
+**/cmd/gcsim/*.json
+**/cmd/gcsim/gcsim
+!**/release-notes.txt
+**/**/node_modules
+**/.env
+**/.envrc
+**/.direnv
+**/**/protos_gen
+**/keys.json
+**/tagger_mapping.json
+app/*
+**/cmd/gcsim/run_optimizer_full.bat
+**/backend/cmd/compute/compute
+**/backend/docker/hash.txt
+**/backend/docker/binary
+**/computebin
+**/.cache
+**/.npm
+**/.task
+**/.venv
+# release binaries to avoid tinting repo
+**/gcsim_windows_amd64.exe
+**/gcsim_darwin_arm64
+**/gcsim_darwin_amd64
+**/gcsim_linux_amd64
+**/server_windows_amd64.exe
+**/server_darwin_arm64
+**/server_darwin_amd64
+**/server_linux_amd64
+**/.venv
+
+# flyctl launch added from backend/cmd/jadechamber/.gitignore
+backend/cmd/jadechamber/**/data
+
+# flyctl launch added from backend/cmd/preview/.gitignore
+backend/cmd/preview/**/assets
+!backend/cmd/preview/**/dist/assets
+
+# flyctl launch added from backend/docker/mosquitto/data/.gitignore
+backend/docker/mosquitto/data/**/*
+!backend/docker/mosquitto/data/**/.gitignore
+
+# flyctl launch added from backend/docker/mosquitto/log/.gitignore
+backend/docker/mosquitto/log/**/*
+!backend/docker/mosquitto/log/**/.gitignore
+
+# flyctl launch added from backend/pkg/user/.gitignore
+backend/pkg/user/**/testdb
+
+# flyctl launch added from cmd/dbcompare/.gitignore
+cmd/dbcompare/**/data
+
+# flyctl launch added from cmd/gcsim/.gitignore
+cmd/gcsim/**/*.txt
+cmd/gcsim/**/*.gz
+cmd/gcsim/**/*.json
+
+# flyctl launch added from cmd/repl/.gitignore
+cmd/repl/**/*.gcs
+
+# flyctl launch added from cmd/services/assets/.gitignore
+cmd/services/assets/**/cache
+cmd/services/assets/**/assets
+
+# flyctl launch added from cmd/services/embedgenerator/.gitignore
+cmd/services/embedgenerator/**/embedgenerator
+
+# flyctl launch added from cmd/wasm/.gitignore
+cmd/wasm/**/dist
+
+# flyctl launch added from internal/tests/reactable/.gitignore
+internal/tests/reactable/**/*.webm
+
+# flyctl launch added from internal/weapons/.gitignore
+internal/weapons/**/ast.txt
+
+# flyctl launch added from pipeline/data/.gitignore
+pipeline/data/**/*
+
+!pipeline/data/**/.gitignore
+
+# flyctl launch added from pipeline/pkg/character/.gitignore
+pipeline/pkg/character/**/test
+pipeline/pkg/character/**/*.generated.json
+
+# flyctl launch added from pipeline/pkg/weapon/.gitignore
+pipeline/pkg/weapon/**/test
+pipeline/pkg/weapon/**/*.generated.json
+
+# flyctl launch added from pkg/simulation/example/.gitignore
+pkg/simulation/example/**/*.json
+
+# flyctl launch added from scripts/app_scripts/.gitignore
+scripts/app_scripts/**/api.txt
+
+# flyctl launch added from scripts/dbsnapshot/.gitignore
+scripts/dbsnapshot/**/*.ss
+
+# flyctl launch added from scripts/imports/.gitignore
+scripts/imports/**/*.txt
+
+# flyctl launch added from ui/.gitignore
+ui/**/.yarn/*
+!ui/**/.yarn/patches
+!ui/**/.yarn/plugins
+!ui/**/.yarn/releases
+!ui/**/.yarn/sdks
+!ui/**/.yarn/versions
+
+# Swap the comments on the following lines if you don't wish to use zero-installs
+# Documentation here: https://yarnpkg.com/features/zero-installs
+!ui/**/.yarn/cache
+#.pnp.*
+
+# flyctl launch added from ui/.yarn/cache/.gitignore
+ui/.yarn/cache/.gitignore
+ui/.yarn/cache/**/*.flock
+ui/.yarn/cache/**/*.tmp
+
+# flyctl launch added from ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/.gitignore
+# ignore most things, include some others
+ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/*
+ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/.*
+
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/bin
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/lib
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/docs
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/package.json
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/package-lock.json
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/README.md
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/CONTRIBUTING.md
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/LICENSE
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/CHANGELOG.md
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/example
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/scripts
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/tap-snapshots
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/test
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/.github
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/.travis.yml
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/.gitignore
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/.gitattributes
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/coverage-map.js
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/map.js
+!ui/node_modules/@lerna/legacy-package-management/node_modules/npm-normalize-package-bin/**/index.js
+
+# flyctl launch added from ui/node_modules/lerna/node_modules/npm-normalize-package-bin/.gitignore
+# ignore most things, include some others
+ui/node_modules/lerna/node_modules/npm-normalize-package-bin/*
+ui/node_modules/lerna/node_modules/npm-normalize-package-bin/.*
+
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/bin
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/lib
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/docs
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/package.json
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/package-lock.json
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/README.md
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/CONTRIBUTING.md
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/LICENSE
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/CHANGELOG.md
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/example
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/scripts
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/tap-snapshots
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/test
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/.github
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/.travis.yml
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/.gitignore
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/.gitattributes
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/coverage-map.js
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/map.js
+!ui/node_modules/lerna/node_modules/npm-normalize-package-bin/**/index.js
+
+# flyctl launch added from ui/node_modules/minipass-sized/.gitignore
+# ignore most things, include some others
+ui/node_modules/minipass-sized/*
+ui/node_modules/minipass-sized/.*
+
+!ui/node_modules/minipass-sized/**/bin
+!ui/node_modules/minipass-sized/**/lib
+!ui/node_modules/minipass-sized/**/docs
+!ui/node_modules/minipass-sized/**/package.json
+!ui/node_modules/minipass-sized/**/package-lock.json
+!ui/node_modules/minipass-sized/**/README.md
+!ui/node_modules/minipass-sized/**/CONTRIBUTING.md
+!ui/node_modules/minipass-sized/**/LICENSE
+!ui/node_modules/minipass-sized/**/CHANGELOG.md
+!ui/node_modules/minipass-sized/**/example
+!ui/node_modules/minipass-sized/**/scripts
+!ui/node_modules/minipass-sized/**/tap-snapshots
+!ui/node_modules/minipass-sized/**/test
+!ui/node_modules/minipass-sized/**/.travis.yml
+!ui/node_modules/minipass-sized/**/.gitignore
+!ui/node_modules/minipass-sized/**/.gitattributes
+!ui/node_modules/minipass-sized/**/coverage-map.js
+!ui/node_modules/minipass-sized/**/index.js
+
+# flyctl launch added from ui/node_modules/promise-all-reject-late/.gitignore
+# ignore most things, include some others
+ui/node_modules/promise-all-reject-late/*
+ui/node_modules/promise-all-reject-late/.*
+
+!ui/node_modules/promise-all-reject-late/**/bin
+!ui/node_modules/promise-all-reject-late/**/lib
+!ui/node_modules/promise-all-reject-late/**/docs
+!ui/node_modules/promise-all-reject-late/**/package.json
+!ui/node_modules/promise-all-reject-late/**/package-lock.json
+!ui/node_modules/promise-all-reject-late/**/README.md
+!ui/node_modules/promise-all-reject-late/**/CONTRIBUTING.md
+!ui/node_modules/promise-all-reject-late/**/LICENSE
+!ui/node_modules/promise-all-reject-late/**/CHANGELOG.md
+!ui/node_modules/promise-all-reject-late/**/example
+!ui/node_modules/promise-all-reject-late/**/scripts
+!ui/node_modules/promise-all-reject-late/**/tap-snapshots
+!ui/node_modules/promise-all-reject-late/**/test
+!ui/node_modules/promise-all-reject-late/**/.github
+!ui/node_modules/promise-all-reject-late/**/.travis.yml
+!ui/node_modules/promise-all-reject-late/**/.gitignore
+!ui/node_modules/promise-all-reject-late/**/.gitattributes
+!ui/node_modules/promise-all-reject-late/**/coverage-map.js
+!ui/node_modules/promise-all-reject-late/**/map.js
+!ui/node_modules/promise-all-reject-late/**/index.js
+
+# flyctl launch added from ui/node_modules/tailwindcss/stubs/.gitignore
+!ui/node_modules/tailwindcss/stubs/**/*
+
+# flyctl launch added from ui/packages/components/.gitignore
+# Logs
+ui/packages/components/**/logs
+ui/packages/components/**/*.log
+ui/packages/components/**/npm-debug.log*
+ui/packages/components/**/yarn-debug.log*
+ui/packages/components/**/yarn-error.log*
+ui/packages/components/**/pnpm-debug.log*
+ui/packages/components/**/lerna-debug.log*
+
+ui/packages/components/**/node_modules
+ui/packages/components/**/dist
+ui/packages/components/**/dist-ssr
+ui/packages/components/**/*.local
+
+# Editor directories and files
+ui/packages/components/**/.vscode/*
+!ui/packages/components/**/.vscode/extensions.json
+ui/packages/components/**/.idea
+ui/packages/components/**/.DS_Store
+ui/packages/components/**/*.suo
+ui/packages/components/**/*.ntvs*
+ui/packages/components/**/*.njsproj
+ui/packages/components/**/*.sln
+ui/packages/components/**/*.sw?
+
+ui/packages/components/**/*storybook.log
+
+# flyctl launch added from ui/packages/db/.gitignore
+ui/packages/db/**/dist
+ui/packages/db/**/stats.html
+
+# flyctl launch added from ui/packages/docs/.gitignore
+# Dependencies
+ui/packages/docs/node_modules
+
+# Production
+ui/packages/docs/build
+
+# Generated files
+ui/packages/docs/**/.docusaurus
+ui/packages/docs/**/.cache-loader
+
+# Misc
+ui/packages/docs/**/.DS_Store
+ui/packages/docs/**/.env.local
+ui/packages/docs/**/.env.development.local
+ui/packages/docs/**/.env.test.local
+ui/packages/docs/**/.env.production.local
+
+ui/packages/docs/**/npm-debug.log*
+ui/packages/docs/**/yarn-debug.log*
+ui/packages/docs/**/yarn-error.log*
+
+# flyctl launch added from ui/packages/embed/.gitignore
+ui/packages/embed/**/dist
+
+# flyctl launch added from ui/packages/storybook/.gitignore
+# Logs
+ui/packages/storybook/**/logs
+ui/packages/storybook/**/*.log
+ui/packages/storybook/**/npm-debug.log*
+ui/packages/storybook/**/yarn-debug.log*
+ui/packages/storybook/**/yarn-error.log*
+ui/packages/storybook/**/pnpm-debug.log*
+ui/packages/storybook/**/lerna-debug.log*
+
+ui/packages/storybook/**/node_modules
+ui/packages/storybook/**/dist
+ui/packages/storybook/**/dist-ssr
+ui/packages/storybook/**/*.local
+
+# Editor directories and files
+ui/packages/storybook/**/.vscode/*
+!ui/packages/storybook/**/.vscode/extensions.json
+ui/packages/storybook/**/.idea
+ui/packages/storybook/**/.DS_Store
+ui/packages/storybook/**/*.suo
+ui/packages/storybook/**/*.ntvs*
+ui/packages/storybook/**/*.njsproj
+ui/packages/storybook/**/*.sln
+ui/packages/storybook/**/*.sw?
+
+ui/packages/storybook/**/*storybook.log
+
+# flyctl launch added from ui/packages/taghelper/.gitignore
+# Logs
+ui/packages/taghelper/**/logs
+ui/packages/taghelper/**/*.log
+ui/packages/taghelper/**/npm-debug.log*
+ui/packages/taghelper/**/yarn-debug.log*
+ui/packages/taghelper/**/yarn-error.log*
+ui/packages/taghelper/**/pnpm-debug.log*
+ui/packages/taghelper/**/lerna-debug.log*
+
+ui/packages/taghelper/**/node_modules
+ui/packages/taghelper/**/dist
+ui/packages/taghelper/**/dist-ssr
+ui/packages/taghelper/**/*.local
+
+# Editor directories and files
+ui/packages/taghelper/**/.vscode/*
+!ui/packages/taghelper/**/.vscode/extensions.json
+ui/packages/taghelper/**/.idea
+ui/packages/taghelper/**/.DS_Store
+ui/packages/taghelper/**/*.suo
+ui/packages/taghelper/**/*.ntvs*
+ui/packages/taghelper/**/*.njsproj
+ui/packages/taghelper/**/*.sln
+ui/packages/taghelper/**/*.sw?
+
+ui/packages/taghelper/**/*.tsbuildinfo
+
+# flyctl launch added from ui/packages/web/.gitignore
+ui/packages/web/**/dist
+ui/packages/web/**/stats.html
+fly.toml
