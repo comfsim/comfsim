@@ -80,6 +80,19 @@ func NewWeapon(c *core.Core, char *character.CharWrapper, p info.WeaponProfile) 
 		gainSeal()
 	}, fmt.Sprintf("verdict-seal-%v", char.Base.Key.String()))
 
+	// seal gain on lunar-crystallize trigger
+	c.Events.Subscribe(event.OnLunarCrystallize, func(args ...any) {
+		if !char.StatModIsActive(buffKey) {
+			w.stacks = 0
+		}
+		if w.stacks < 2 {
+			w.stacks++
+		}
+		c.Log.NewEvent("verdict adding stack", glog.LogWeaponEvent, char.Index()).
+			Write("stacks", w.stacks)
+		char.AddStatus(buffKey, buffDuration, true)
+	}, fmt.Sprintf("verdict-seal-%v", char.Base.Key.String()))
+
 	// skill dmg increase while seals active
 	skillDmg := 0.135 + float64(r)*0.045
 	c.Events.Subscribe(event.OnEnemyHit, func(args ...any) {
