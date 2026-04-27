@@ -17,7 +17,7 @@ const (
 	LcrKey              = "lunarcrystallize"
 	LcrExtraHitOverride = "lunarcrystallize-bonus-hit-chance"
 	lcrCountKey         = "lunarcrystallize-count"
-	lcrDur              = 5.5 * 60
+	LcrDur              = 5.5 * 60
 )
 
 var lcrContributorMult = []float64{0.6, 0.3, 0.05, 0.05} // TODO: move to a lunar.go ?
@@ -41,7 +41,7 @@ func (r *Reactable) TryAddLCr(a *info.AttackEvent) bool {
 	}
 
 	r.core.Flags.Custom[lcrCountKey] += 1
-	r.core.Status.Add(LcrKey, lcrDur)
+	r.core.Status.Add(LcrKey, LcrDur)
 	r.addLCrContributor(a)
 
 	if r.core.Flags.Custom[lcrCountKey] >= 3 {
@@ -83,7 +83,7 @@ func (r *Reactable) extendLunarCrystallizeConstructDur() {
 		if !ok {
 			continue
 		}
-		c.expiry = r.core.F + lcrDur
+		c.expiry = r.core.F + LcrDur
 	}
 }
 
@@ -98,7 +98,7 @@ type skillConstruct struct {
 func (r *Reactable) newLunarCrystallizeConstruct(dir, pos info.Point) *skillConstruct {
 	return &skillConstruct{
 		src:    r.core.F,
-		expiry: r.core.F + lcrDur,
+		expiry: r.core.F + LcrDur,
 		react:  r,
 		dir:    dir,
 		pos:    pos,
