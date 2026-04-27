@@ -93,8 +93,7 @@ func (c *char) lunarchargeInit() {
 			return
 		}
 
-		stats := c.SelectStat(true, attributes.BaseATK, attributes.ATKP, attributes.ATK)
-		bonus := min(stats.TotalATK()/100.0*0.007, 0.14)
+		bonus := min(c.TotalAtk()/100.0*0.007, 0.14)
 
 		if c.Core.Flags.LogDebug {
 			c.Core.Log.NewEvent("ineffa adding lunarcharged base damage", glog.LogCharacterEvent, c.Index()).Write("bonus", bonus)
@@ -103,14 +102,12 @@ func (c *char) lunarchargeInit() {
 		atk.Info.BaseDmgBonus += bonus
 	}, lunarchargeBonusKey)
 
-	c.Core.Events.Subscribe(event.OnLunarChargedReactionAttack, func(args ...any) {
+	c.Core.Events.Subscribe(event.OnLunarReactionAttack, func(args ...any) {
 		atk := args[1].(*info.AttackEvent)
 		if atk.Info.AttackTag != attacks.AttackTagReactionLunarCharge {
 			return
 		}
-
-		stats := c.SelectStat(true, attributes.BaseATK, attributes.ATKP, attributes.ATK)
-		bonus := min(stats.TotalATK()/100.0*0.007, 0.14)
+		bonus := min(c.TotalAtk()/100.0*0.007, 0.14)
 
 		atk.Info.BaseDmgBonus += bonus
 	}, lunarchargeBonusKey+"-lc-atk")

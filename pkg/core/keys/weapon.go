@@ -147,6 +147,8 @@ var weaponNames = []string{
 	"moonweaversdawn",
 	"mountainbracingbolt",
 	"mouunsmoon",
+	"nightweaverslookingglass",
+	"nocturnescurtaincall",
 	"oathsworneye",
 	"oldmercspal",
 	"otherworldlystory",
@@ -164,11 +166,13 @@ var weaponNames = []string{
 	"prototypecrescent",
 	"prototyperancour",
 	"prototypestarglitter",
+	"rainbowserpentbow",
 	"rainslasher",
 	"rangegauge",
 	"ravenbow",
 	"recurvebow",
 	"redhornstonethresher",
+	"reliquaryoftruth",
 	"rightfulreward",
 	"ringofyaxche",
 	"royalbow",
@@ -372,6 +376,8 @@ const (
 	MoonweaversDawn
 	MountainBracingBolt
 	MouunsMoon
+	NightweaversLookingGlass
+	NocturnesCurtainCall
 	OathswornEye
 	OldMercsPal
 	OtherworldlyStory
@@ -389,11 +395,13 @@ const (
 	PrototypeCrescent
 	PrototypeRancour
 	PrototypeStarglitter
+	RainbowSerpentBow
 	Rainslasher
 	RangeGauge
 	RavenBow
 	RecurveBow
 	RedhornStonethresher
+	ReliquaryOfTruth
 	RightfulReward
 	RingOfYaxche
 	RoyalBow
