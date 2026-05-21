@@ -68,7 +68,7 @@ jobs:
           # curl -fsS --retry 5 --retry-delay 2 https://$APP_NAME.fly.dev || exit 1
 
       - name: Maintain comment
-        uses: actions-cool/maintain-one-comment@v3.2.1
+        uses: actions-cool/maintain-one-comment-backup@fbbc22ad1809c1bcf46f19b58397b6254773588c
         if: ${{ github.event_name == 'pull_request_target' }}
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
