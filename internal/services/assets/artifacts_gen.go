@@ -2,6 +2,11 @@
 package assets
 
 var artfactMap = map[string]string{
+	"adaycarvedfromrisingwinds_circlet":          "UI_RelicIcon_15044_3",
+	"adaycarvedfromrisingwinds_flower":           "UI_RelicIcon_15044_4",
+	"adaycarvedfromrisingwinds_goblet":           "UI_RelicIcon_15044_1",
+	"adaycarvedfromrisingwinds_plume":            "UI_RelicIcon_15044_2",
+	"adaycarvedfromrisingwinds_sands":            "UI_RelicIcon_15044_5",
 	"archaicpetra_circlet":                       "UI_RelicIcon_15014_3",
 	"archaicpetra_flower":                        "UI_RelicIcon_15014_4",
 	"archaicpetra_goblet":                        "UI_RelicIcon_15014_1",
@@ -37,6 +42,11 @@ var artfactMap = map[string]string{
 	"braveheart_goblet":                          "UI_RelicIcon_10002_1",
 	"braveheart_plume":                           "UI_RelicIcon_10002_2",
 	"braveheart_sands":                           "UI_RelicIcon_10002_5",
+	"celestialgift_circlet":                      "UI_RelicIcon_15045_3",
+	"celestialgift_flower":                       "UI_RelicIcon_15045_4",
+	"celestialgift_goblet":                       "UI_RelicIcon_15045_1",
+	"celestialgift_plume":                        "UI_RelicIcon_15045_2",
+	"celestialgift_sands":                        "UI_RelicIcon_15045_5",
 	"crimsonwitchofflames_circlet":               "UI_RelicIcon_15006_3",
 	"crimsonwitchofflames_flower":                "UI_RelicIcon_15006_4",
 	"crimsonwitchofflames_goblet":                "UI_RelicIcon_15006_1",
