@@ -1,6 +1,10 @@
 package mavuika
 
 import (
+	"errors"
+	"fmt"
+
+	"github.com/genshinsim/gcsim/internal/frames"
 	tmpl "github.com/genshinsim/gcsim/internal/template/character"
 	"github.com/genshinsim/gcsim/internal/template/nightsoul"
 	"github.com/genshinsim/gcsim/pkg/core"
@@ -16,7 +20,6 @@ type SkillState int
 const (
 	ring SkillState = iota
 	bike
-	bikeCDKey = "flamestrider-charge"
 )
 
 type char struct {
@@ -35,10 +38,8 @@ type char struct {
 	savedNormalCounter int
 	caState            ChargeState
 	canBikePlunge      bool
-}
-
-func init() {
-	core.RegisterCharFunc(keys.Mavuika, NewChar)
+	chargeCancel       bool
+	dashFrames         []int
 }
 
 func NewChar(s *core.Core, w *character.CharWrapper, p info.CharacterProfile) error {
@@ -63,6 +64,7 @@ func NewChar(s *core.Core, w *character.CharWrapper, p info.CharacterProfile) er
 
 	w.Character = &c
 	c.nightsoulState = nightsoul.New(c.Core, c.CharWrapper)
+	c.dashFrames = frames.InitAbilSlice(24) // Dash -> Dash
 	return nil
 }
 
@@ -105,8 +107,29 @@ func (c *char) ActionReady(a action.Action, p map[string]int) (bool, action.Fail
 			return true, action.NoFailure
 		}
 		return c.Character.ActionReady(a, p)
+	case action.ActionCharge:
+		if c.nightsoulState.HasBlessing() && c.armamentState == bike {
+			if !c.canBeginBikedCharge(p) {
+				return false, action.InsufficientStamina
+			}
+		}
 	}
 	return c.Character.ActionReady(a, p)
+}
+
+func (c *char) canBeginBikedCharge(p map[string]int) bool {
+	if c.Core.Player.CurrentState() != action.ChargeAttackState || c.caState.StartFrame == 0 {
+		bufferedFrames, ok := p["buffered"]
+		if !ok {
+			bufferedFrames = maxBufferedBikeChargeFrames
+		}
+		bufferedFrames = maxBufferedBikeChargeFrames - c.GetSkippedWindupFrames(bufferedFrames)
+		if c.GetRemainingNightSoulDuration() < bufferedFrames {
+			// If unable to perform a biked charge, must wait until physical charge is ready
+			return false
+		}
+	}
+	return true
 }
 
 func (c *char) onExitField() {
@@ -149,4 +172,22 @@ func (c *char) AnimationStartDelay(k info.AnimationDelayKey) int {
 	default:
 		return c.Character.AnimationStartDelay(k)
 	}
+}
+
+func (c *char) NextQueueItemIsValid(targetChar keys.Char, a action.Action, p map[string]int) error {
+	if c.chargeCancel {
+		if targetChar != c.Base.Key {
+			return errors.New("cannot swap, Mavuika must perform a Biked charge attack after a dash cancel")
+		}
+		if !c.nightsoulState.HasBlessing() {
+			return errors.New("nightsoul blessing expired before Mavuika could perform charge cancel")
+		}
+		if c.Core.Player.CurrentState() != action.DashState {
+			return errors.New("cannot allow Mavuika to go into idle during charge-cancelled dash")
+		}
+		if a != action.ActionCharge {
+			return fmt.Errorf("cannot perform action %s, Mavuika must perform a Biked charge attack after a dash cancel", a)
+		}
+	}
+	return c.Character.NextQueueItemIsValid(targetChar, a, p)
 }

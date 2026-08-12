@@ -1,2 +1,6 @@
-package_name: athameartis
-genshin_id: 11518
+use: pipeline
+kind: weapon
+name: athameartis
+
+shortcuts:
+  - athame

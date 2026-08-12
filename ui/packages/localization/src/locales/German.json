@@ -50,6 +50,7 @@
         "vaporize": "Verdampfen",
         "crystallize-electro": "Kristallisation (Elektro)",
         "crystallize-hydro": "Kristallisation (Hydro)",
+        "lunarcrystallize": "Mond-Kristallisation",
         "crystallize-pyro": "Kristallisation (Pyro)",
         "crystallize-cryo": "Kristallisation (Kryo)",
         "swirl-electro": "Verwirbelung (Elektro)",
@@ -57,6 +58,7 @@
         "swirl-pyro": "Verwirbelung (Pyro)",
         "swirl-cryo": "Verwirbelung (Kryo)",
         "electrocharged": "Unter Strom",
+        "lunarcharged": "Mond unter Strom",
         "shatter": "Eisbrecher",
         "burning": "In Flammen",
         "quicken": "Urwuchs",
@@ -64,7 +66,8 @@
         "spread": "Rankenwuchs",
         "bloom": "Sprießen",
         "burgeon": "Flammenspross",
-        "hyperbloom": "Supraspross"
+        "hyperbloom": "Supraspross",
+        "lunarbloom": "Mondspross"
     },
     "dash": {
         "get_started": "Loslegen",
@@ -369,7 +372,7 @@
     },
     "warnings": {
         "incomplete_char_title": "Unvollständige Figuren benutzt",
-        "incomplete_char_body": "Diese Simulation enthält Figuren in einem frühen Release-Status! Diese Figuren sind vollständig implemnetiert, haben aber möglicherweise nicht die optimalen Frame-Daten, die mit den Animationen im Spiel übereinstimmen. Wir sammeln aktiv Daten, um ihre Implementierung zu verbessern. Wenn ihr helfen wollt, meldet euch bitte im <0>gcsim Discord</0>!",
+        "incomplete_char_body": "Diese Simulation enthält Figuren in einem frühen Release-Status! Diese Figuren sind vollständig implementiert, haben aber möglicherweise nicht die optimalen Daten, die mit den Spielmechaniken übereinstimmen. Wir sammeln aktiv Daten, um ihre Implementierung zu verbessern. Wenn ihr helfen wollt, meldet euch bitte im <0>gcsim Discord</0>!",
         "incomplete_char_data_header": "Unvollständige Figuren",
         "position_overlap_title": "Zielpositionen überschneiden sich",
         "position_overlap_body": "Die Zielpositionen überschneiden sich in mindestens einer Iteration. Überprüfen Sie, ob dies beabsichtigt ist, und aktualisieren Sie die Positionen gegebenenfalls, um Überschneidungen zu vermeiden. Sich überschneidende Positionen können zu ungenauen Simulationen führen.",

@@ -2,13 +2,13 @@ import React from "react";
 import ReactPlayer from "react-player";
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
-import character_data from "./character_data.json";
+import character_data from "./character.dm.json";
 
 function Vid({ vid }) {
   return (
     <div>
-      <ReactPlayer controls url={vid.vid} />
-      Video credit: {vid.vid_credit === "" ? "Unknown" : vid.vid_credit}
+      <ReactPlayer controls url={vid.video} />
+      Video credit: {vid.video_credit === "" ? "Unknown" : vid.video_credit}
       <br />
       Count :{" "}
       {vid.count !== "" ? (

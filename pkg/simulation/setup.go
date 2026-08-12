@@ -10,6 +10,7 @@ import (
 	"github.com/genshinsim/gcsim/pkg/core/attacks"
 	"github.com/genshinsim/gcsim/pkg/core/attributes"
 	"github.com/genshinsim/gcsim/pkg/core/combat"
+	"github.com/genshinsim/gcsim/pkg/core/construct"
 	"github.com/genshinsim/gcsim/pkg/core/event"
 	"github.com/genshinsim/gcsim/pkg/core/glog"
 	"github.com/genshinsim/gcsim/pkg/core/info"
@@ -17,9 +18,13 @@ import (
 	"github.com/genshinsim/gcsim/pkg/core/player/character"
 	"github.com/genshinsim/gcsim/pkg/enemy"
 	"github.com/genshinsim/gcsim/pkg/modifier"
+	"github.com/genshinsim/gcsim/pkg/reactable"
 )
 
-const nightsoulBurstICDStatus = "nightsoul-burst-icd"
+const (
+	nightsoulBurstICDStatus = "nightsoul-burst-icd"
+	geoResKey               = "geo-res"
+)
 
 // first is 0 because you can't proc it without the natlan character
 var nightsoulBurstICD = []int{0, 18 * 60, 12 * 60, 9 * 60, 9 * 60}
@@ -200,12 +205,17 @@ func SetupResonance(s *core.Core) {
 			s.Events.Subscribe(event.OnAggravate, recoverNoGadget, "electro-res")
 			s.Events.Subscribe(event.OnHyperbloom, recoverParticle, "electro-res")
 		case attributes.Geo:
-			// Increases shield strength by 15%. Additionally, characters protected by a shield will have the
-			// following special characteristics:
-
-			//	DMG dealt increased by 15%, dealing DMG to enemies will decrease their Geo RES by 20% for 15s.
+			// Increases shield strength by 15%. Additionally, characters protected by a shield,
+			// or when Moondrifts formed by Lunar-Crystallize are nearby, will have the following
+			// special characteristics:
+			//
+			// DMG dealt increased by 15%, dealing DMG to enemies will decrease their Geo RES by 20% for 15s.
 			f := func() (float64, bool) { return 0.15, true }
-			s.Player.Shields.AddShieldBonusMod("geo-res", -1, f)
+			s.Player.Shields.AddShieldBonusMod(geoResKey, -1, f)
+
+			geoResTickerSrc := 0
+
+			updateGeoResonance(s, geoResTickerSrc, &geoResTickerSrc)
 
 			// shred geo res of target
 			s.Events.Subscribe(event.OnEnemyDamage, func(args ...any) {
@@ -214,9 +224,11 @@ func SetupResonance(s *core.Core) {
 					return
 				}
 				atk := args[1].(*info.AttackEvent)
-				if s.Player.Shields.CharacterIsShielded(atk.Info.ActorIndex, s.Player.Active()) {
+
+				charIndex := atk.Info.ActorIndex
+				if s.Flags.Custom[geoResKey] == 1 && s.Player.Active() == charIndex {
 					t.AddResistMod(info.ResistMod{
-						Base:  modifier.NewBaseWithHitlag("geo-res", 15*60),
+						Base:  modifier.NewBaseWithHitlag(geoResKey, 15*60),
 						Ele:   attributes.Geo,
 						Value: -0.2,
 					})
@@ -227,15 +239,33 @@ func SetupResonance(s *core.Core) {
 			m[attributes.DmgP] = .15
 			for _, c := range chars {
 				c.AddAttackMod(character.AttackMod{
-					Base: modifier.NewBase("geo-res", -1),
+					Base: modifier.NewBase(geoResKey, -1),
 					Amount: func(ae *info.AttackEvent, t info.Target) []float64 {
-						if s.Player.Shields.CharacterIsShielded(ae.Info.ActorIndex, s.Player.Active()) {
+						if s.Flags.Custom[geoResKey] == 1 && s.Player.Active() == c.Index() {
 							return m
 						}
 						return nil
 					},
 				})
 			}
+
+			s.Events.Subscribe(event.OnCharacterSwap, func(args ...any) {
+				geoResTickerSrc = s.F
+
+				updateGeoResonance(s, geoResTickerSrc, &geoResTickerSrc)()
+			}, "geo-res-on-swap")
+
+			s.Events.Subscribe(event.OnShielded, func(args ...any) {
+				geoResTickerSrc = s.F
+
+				updateGeoResonance(s, geoResTickerSrc, &geoResTickerSrc)()
+			}, "geo-res-on-shielded")
+
+			s.Events.Subscribe(event.OnShieldBreak, func(args ...any) {
+				geoResTickerSrc = s.F
+
+				updateGeoResonance(s, geoResTickerSrc, &geoResTickerSrc)()
+			}, "geo-res-on-shield-break")
 
 		case attributes.Anemo:
 			s.Player.AddStamPercentMod("anemo-res-stam", -1, func(a action.Action) (float64, bool) {
@@ -308,6 +338,34 @@ func SetupResonance(s *core.Core) {
 	}
 }
 
+func updateGeoResonance(s *core.Core, src int, srcPtr *int) func() {
+	return func() {
+		if *srcPtr != src {
+			return
+		}
+
+		isGeoResActive := s.Player.Shields.CharacterIsShielded(s.Player.Active(), s.Player.Active())
+
+		moondrifts, _ := s.Constructs.ConstructsByType(construct.GeoConstructLunarCrystallize)
+		playerPos := s.Combat.Player().Pos()
+		for _, moondrift := range moondrifts {
+			if playerPos.Distance(moondrift.Pos()) < 16 {
+				isGeoResActive = true
+			}
+		}
+
+		// core.Status doesn't support unlimited duration statues
+		// so we need to use the core.Flags.Custom
+		if isGeoResActive {
+			s.Flags.Custom[geoResKey] = 1
+		} else {
+			s.Flags.Custom[geoResKey] = 0
+		}
+
+		s.Player.ActiveChar().QueueCharTask(updateGeoResonance(s, src, srcPtr), 60)
+	}
+}
+
 func SetupMisc(c *core.Core) {
 	c.Events.Subscribe(event.OnEnemyDamage, func(args ...any) {
 		// dmg tag is superconduct, target is enemy
@@ -321,7 +379,7 @@ func SetupMisc(c *core.Core) {
 		}
 		// add shred
 		t.AddResistMod(info.ResistMod{
-			Base:  modifier.NewBaseWithHitlag("superconduct-phys-shred", 12*60),
+			Base:  modifier.NewBaseWithHitlag(reactable.SuperConductShredKey, 12*60),
 			Ele:   attributes.Physical,
 			Value: -0.4,
 		})
