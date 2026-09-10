@@ -177,7 +177,7 @@ func (c *char) surgingBladeTask(target info.Target) {
 
 	aiThorn := info.AttackInfo{
 		ActorIndex:   c.Index(),
-		Abil:         "Spiritbreath Thorn (" + c.Base.Key.Pretty() + ")",
+		Abil:         "Spiritbreath Thorn (" + c.Base.Key.String() + ")",
 		AttackTag:    attacks.AttackTagElementalArt,
 		ICDTag:       attacks.ICDTagNone,
 		ICDGroup:     attacks.ICDGroupDefault,
@@ -227,7 +227,7 @@ func (c *char) bubbleFinalHealing() {
 		Caller:  c.Index(),
 		Target:  c.Index(),
 		Message: "Bolstering Bubblebalm Healing",
-		Src:     finalBounceHealing[c.TalentLvlSkill()] * c.MaxHP(),
+		Src:     finalBounceHealing * c.MaxHP(),
 		Bonus:   c.Stat(attributes.Heal) + skillBonus,
 	})
 	c.c6CritMode()

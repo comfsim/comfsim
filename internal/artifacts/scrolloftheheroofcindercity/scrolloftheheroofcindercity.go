@@ -9,7 +9,6 @@ import (
 	"github.com/genshinsim/gcsim/pkg/core/attributes"
 	"github.com/genshinsim/gcsim/pkg/core/event"
 	"github.com/genshinsim/gcsim/pkg/core/info"
-	"github.com/genshinsim/gcsim/pkg/core/keys"
 	"github.com/genshinsim/gcsim/pkg/core/player/character"
 	"github.com/genshinsim/gcsim/pkg/modifier"
 )
@@ -27,7 +26,7 @@ var reactToElements = map[info.ReactionType][]attributes.Element{
 	info.ReactionTypeSwirlElectro:       {attributes.Anemo, attributes.Electro},
 	info.ReactionTypeSwirlPyro:          {attributes.Anemo, attributes.Pyro},
 	info.ReactionTypeCrystallizeHydro:   {attributes.Geo, attributes.Hydro},
-	info.ReactionTypeLunarCrystallize:   {attributes.Electro, attributes.Hydro},
+	info.ReactionTypeLunarCrystallize:   {attributes.Geo, attributes.Hydro},
 	info.ReactionTypeCrystallizeCryo:    {attributes.Geo, attributes.Cryo},
 	info.ReactionTypeCrystallizeElectro: {attributes.Geo, attributes.Electro},
 	info.ReactionTypeCrystallizePyro:    {attributes.Geo, attributes.Pyro},
@@ -39,10 +38,6 @@ var reactToElements = map[info.ReactionType][]attributes.Element{
 	info.ReactionTypeHyperbloom:         {attributes.Dendro, attributes.Electro},
 	info.ReactionTypeBurgeon:            {attributes.Dendro, attributes.Pyro},
 	info.ReactionTypeBurning:            {attributes.Dendro, attributes.Pyro},
-}
-
-func init() {
-	core.RegisterSetFunc(keys.ScrollOfTheHeroOfCinderCity, NewSet)
 }
 
 type Set struct {
@@ -143,7 +138,7 @@ func NewSet(c *core.Core, char *character.CharWrapper, count int, param map[stri
 			event.OnSwirlElectro:       info.ReactionTypeSwirlElectro,
 			event.OnSwirlPyro:          info.ReactionTypeSwirlPyro,
 			event.OnCrystallizeHydro:   info.ReactionTypeCrystallizeHydro,
-			event.OnLunarCrystallize:   info.ReactionTypeLunarCharged,
+			event.OnLunarCrystallize:   info.ReactionTypeLunarCrystallize,
 			event.OnCrystallizeCryo:    info.ReactionTypeCrystallizeCryo,
 			event.OnCrystallizeElectro: info.ReactionTypeCrystallizeElectro,
 			event.OnCrystallizePyro:    info.ReactionTypeCrystallizePyro,

@@ -25,29 +25,27 @@ tasks:
       - go run scripts/bsontags/main.go -dir ./backend/pkg/services/db -verbose
       - go run scripts/bsontags/main.go -dir ./backend/pkg/services/share -verbose
       - task: msgp
-      # - task: protos-to-ts
   msgp:
-    dir: ./pkg/stats
-    cmds:
-      - go generate
+    cmd: go generate ./pkg/stats
   embed:
-    cmds:
-      - sh -c "scripts/build_preview.sh"
+    cmd: ./scripts/build_preview.sh
+
   pipeline:
+    desc: Run pipeline
+    vars:
+      CLI_ARGS: '{{.CLI_ARGS | default "run"}}'
     cmds:
-      - go run pipeline/cmd/generate/main.go --gen-char --gen-weap --gen-art --gen-enemies
-  pipeline-avatars:
+      - go generate ./pipeline
+      - go run ./pipeline {{.CLI_ARGS}}
+  pipeline-add:
     cmds:
-      - go run pipeline/cmd/generate/main.go --gen-char
-  pipeline-weapons:
+      - git add -v 'ui/packages/docs/docs/reference/*/*.md' > /dev/null
+      - git add -v '*.dm.*'
+  pipeline-clean:
     cmds:
-      - go run pipeline/cmd/generate/main.go --gen-weap
-  pipeline-artifacts:
-    cmds:
-      - go run pipeline/cmd/generate/main.go --gen-art
-  pipeline-enemies:
-    cmds:
-      - go run pipeline/cmd/generate/main.go --gen-enemies
+      - git rm -f --ignore-unmatch 'ui/packages/docs/docs/reference/*/*.md' > /dev/null
+      - git rm -f --ignore-unmatch '*.dm.*'
+
   wasm:
     dir: cmd/wasm
     cmds:
@@ -59,13 +57,11 @@ tasks:
 
   lint:
     desc: Run golangci-lint
-    cmds:
-      - golangci-lint run
+    cmd: golangci-lint run
 
   lint-fix:
     desc: Run golangci-lint and fix issues
-    cmds:
-      - golangci-lint run --fix
+    cmd: golangci-lint run --fix
 
   dev-server-mode:
     desc: watches for change and launches server mode

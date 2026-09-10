@@ -27,7 +27,7 @@ func (stats *SubstatOptimizerDetails) calculateERBaseline() {
 		// TODO: Don't think there's a better solution without an expensive recursive solution to check across all Raiden ER states
 		// Practically high ER substat Raiden is always currently unoptimal, so we just set her initial stacks lowish
 		erSubs := 0
-		if stats.charProfilesInitial[i].Base.Key == keys.Raiden {
+		if stats.charProfilesInitial[i].Base.Key == keys.RaidenShogun {
 			erSubs = 4
 		}
 		stats.charSubstatFinal[i][attributes.ER] = erSubs
@@ -64,7 +64,8 @@ func (stats *SubstatOptimizerDetails) optimizeERSubstats() {
 	stats.optimizer.logger.Info("Initial Calculated ER Liquid Substats by character:")
 	output := ""
 	for i := range stats.charProfilesInitial {
-		output += fmt.Sprintf("%v: %.4g, ",
+		output += fmt.Sprintf(
+			"%v: %.4g, ",
 			stats.charProfilesInitial[i].Base.Key.String(),
 			float64(stats.charSubstatFinal[i][attributes.ER])*stats.substatValues[attributes.ER]*stats.charSubstatRarityMod[i],
 		)
@@ -89,7 +90,7 @@ func (stats *SubstatOptimizerDetails) findOptimalERforChars() {
 		erLen := len(a.AdditionalErNeeded[idxChar])
 		if stats.optimizer.verbose {
 			hist := fmtHist(a.ErNeeded[idxChar], float64(int(a.ErNeeded[idxChar][0]*10))/10.0, 0.05)
-			stats.optimizer.logger.Infof("%v: ER Needed Distribution", stats.charProfilesInitial[idxChar].Base.Key.Pretty())
+			stats.optimizer.logger.Infof("%v: ER Needed Distribution", stats.charProfilesInitial[idxChar].Base.Key.String())
 			for _, val := range hist {
 				stats.optimizer.logger.Infoln(val)
 			}
