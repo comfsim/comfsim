@@ -146,11 +146,11 @@ func (c *char) skillRecast() action.Info {
 		// do the big hit and then lower frequency
 		c.skillHitNum = 0
 		c.skillSrc = src
+		c.AddStatus(skillStandardPower, skillDur, false)
 		c.a1OnLumi(src)
 		c.Core.Tasks.Add(func() {
 			c.millionTonHammer()
 		}, skillMillionTonHitmark)
-		c.AddStatus(skillStandardPower, skillDur, false)
 		c.Core.Tasks.Add(func() { c.lumiAttack(src) }, skillMillionTonHitmark+skillStandardStart)
 	} else {
 		c.AddStatus(skillRecastKey, skillRecastDur, true)
@@ -202,7 +202,7 @@ func (c *char) millionTonHammer() {
 
 	ae.Callbacks = append(ae.Callbacks, c.particleCB)
 	c.Core.QueueAttackEvent(&ae, 0)
-	c.c2TriggerMoonDrift()
+	c.c2TriggerMoonDrift(&ae)
 }
 
 func (c *char) poundPoundHammer(src int) {
@@ -254,7 +254,7 @@ func (c *char) heavyOverdriveHammer() {
 	ae.Callbacks = append(ae.Callbacks, c.particleCB)
 	c.Core.QueueAttackEvent(&ae, 0)
 
-	c.c2TriggerMoonDrift()
+	c.c2TriggerMoonDrift(&ae)
 }
 
 func (c *char) particleCB(a info.AttackCB) {

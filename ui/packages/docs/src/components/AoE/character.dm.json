@@ -7735,6 +7735,16 @@
       "radius": 1.5
     }
   ],
+  "linnea": [
+    {
+      "ability": "a1",
+      "name": "A1-Geo-RES-Shred",
+      "note": "Lumi is approximated at the primary target. The assumed 10-unit height is not modeled in the 2D combat plane.",
+      "shape": "Circle",
+      "center": "PrimaryTarget",
+      "radius": 10
+    }
+  ],
   "lisa": [
     {
       "ability": "attack",

@@ -17,6 +17,12 @@
   "lauma": [
     "Spirit envoy state jump is not implemented."
   ],
+  "linnea": [
+    "Lumi's position is approximated by the current primary target's position. Lumi's movement and vertical range are not modeled.",
+    "C1 currently consumes stacks once per hit across all targets and Lunar-Crystallize contributors. Multi-target consumption still needs in-game verification.",
+    "Existing action frames are retained. Burst CanQueueAfter is 97 frames, but its Skill cancel is 96 frames; the frame consistency test currently fails.",
+    "Burst is modeled with 12 healing ticks at 1-second intervals. The final tick at the duration boundary still needs verification."
+  ],
   "xianyun": [
     "Not all characters can plunge after a Adeptal Assistance boosted jump"
   ]
