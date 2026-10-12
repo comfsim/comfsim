@@ -3095,11 +3095,13 @@
     },
     {
       "ability": "skill",
+      "note": "Repeated Skill casts during the recast window feed Lumi. The initial cast followed by three recasts triggers Million Ton Crush.",
       "invalid": false
     },
     {
       "ability": "burst",
-      "invalid": true
+      "note": "The initial heal affects the whole party. Subsequent heals affect the active character. Casting Burst while Lumi is present refreshes her duration and preserves her form and attack sequence.",
+      "invalid": false
     },
     {
       "ability": "dash",

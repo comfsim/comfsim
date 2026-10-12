@@ -17,12 +17,17 @@ talents:
   - skillHeavy: skill(Lumi Heavy Overdrive Hammer DMG)
   - skillMillion: skill(Lumi Million Ton Crush DMG)
 
-  - burstInitialFlat: burst(Initial Healing Amount)
-  - burstInitialDef: burst(Initial Healing Amount|1)
-  - burstTickFlat: burst(Continuous Healing)
-  - burstTickDef: burst(Continuous Healing|1)
+  - burstInitialFlat: burst(Initial Healing Amount|1)
+  - burstInitialDef: burst(Initial Healing Amount)
+  - burstTickFlat: burst(Continuous Healing|1)
+  - burstTickDef: burst(Continuous Healing)
 
 docs:
+  issues:
+    - "Lumi's position is approximated by the current primary target's position. Lumi's movement and vertical range are not modeled."
+    - "C1 currently consumes stacks once per hit across all targets and Lunar-Crystallize contributors. Multi-target consumption still needs in-game verification."
+    - "Existing action frames are retained. Burst CanQueueAfter is 97 frames, but its Skill cancel is 96 frames; the frame consistency test currently fails."
+    - "Burst is modeled with 12 healing ticks at 1-second intervals. The final tick at the duration boundary still needs verification."
   frames:
     - count: https://docs.google.com/spreadsheets/d/1JBfw7ObsV8QXKiOEsrkeTcc36yChs9azBST5514U5uI/
       count_credit: caramielle.
@@ -47,3 +52,15 @@ abilities:
   - name: skill
     params:
       recast: Recast the skill while its recast window is active.
+    note: "Repeated Skill casts during the recast window feed Lumi. The initial cast followed by three recasts triggers Million Ton Crush."
+
+  - name: burst
+    note: "The initial heal affects the whole party. Subsequent heals affect the active character. Casting Burst while Lumi is present refreshes her duration and preserves her form and attack sequence."
+
+  - name: a1
+    hitbox:
+      - name: A1-Geo-RES-Shred
+        shape: Circle
+        center: PrimaryTarget
+        radius: 10
+        note: "Lumi is approximated at the primary target. The assumed 10-unit height is not modeled in the 2D combat plane."

@@ -233,24 +233,6 @@ var (
 	}
 	// burst: MemoSurvivalGuideInExtremeConditions - Initial Healing Amount: {1} DEF+{0}
 	burstInitialFlat = []float64{
-		1.6,
-		1.72,
-		1.84,
-		2.0,
-		2.12,
-		2.24,
-		2.4,
-		2.56,
-		2.72,
-		2.88,
-		3.04,
-		3.2,
-		3.4,
-		3.6,
-		3.8,
-	}
-	// burst: MemoSurvivalGuideInExtremeConditions - Initial Healing Amount: {1} DEF+{0}
-	burstInitialDef = []float64{
 		770.3755,
 		847.42377,
 		930.8927,
@@ -267,26 +249,26 @@ var (
 		2272.8164,
 		2433.3337,
 	}
-	// burst: MemoSurvivalGuideInExtremeConditions - Continuous Healing: {3} DEF+{2}
-	burstTickFlat = []float64{
-		0.32,
-		0.344,
-		0.368,
-		0.4,
-		0.424,
-		0.448,
-		0.48,
-		0.512,
-		0.544,
-		0.576,
-		0.608,
-		0.64,
-		0.68,
-		0.72,
-		0.76,
+	// burst: MemoSurvivalGuideInExtremeConditions - Initial Healing Amount: {1} DEF+{0}
+	burstInitialDef = []float64{
+		1.6,
+		1.72,
+		1.84,
+		2.0,
+		2.12,
+		2.24,
+		2.4,
+		2.56,
+		2.72,
+		2.88,
+		3.04,
+		3.2,
+		3.4,
+		3.6,
+		3.8,
 	}
 	// burst: MemoSurvivalGuideInExtremeConditions - Continuous Healing: {3} DEF+{2}
-	burstTickDef = []float64{
+	burstTickFlat = []float64{
 		154.0751,
 		169.48476,
 		186.17854,
@@ -302,5 +284,23 @@ var (
 		423.744,
 		454.5633,
 		486.66675,
+	}
+	// burst: MemoSurvivalGuideInExtremeConditions - Continuous Healing: {3} DEF+{2}
+	burstTickDef = []float64{
+		0.32,
+		0.344,
+		0.368,
+		0.4,
+		0.424,
+		0.448,
+		0.48,
+		0.512,
+		0.544,
+		0.576,
+		0.608,
+		0.64,
+		0.68,
+		0.72,
+		0.76,
 	}
 )

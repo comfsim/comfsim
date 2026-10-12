@@ -36,7 +36,8 @@ func (c *char) a1Ticker(src int) {
 	if c.Core.Player.GetMoonsignLevel() >= 2 {
 		shred += 0.15
 	}
-	for _, e := range c.Core.Combat.EnemiesWithinArea(combat.NewCircleHitOnTarget(c.LumiPos(), nil, 5), nil) {
+	// CircleR10H10 is modeled as radius 10 on the 2D combat plane.
+	for _, e := range c.Core.Combat.EnemiesWithinArea(combat.NewCircleHitOnTarget(c.LumiPos(), nil, 10), nil) {
 		e.AddResistMod(info.ResistMod{
 			Base:  modifier.NewBaseWithHitlag(a1Key, 1.5*60),
 			Ele:   attributes.Geo,
@@ -50,42 +51,36 @@ func (c *char) a4Init() {
 	if c.Base.Ascension < 4 {
 		return
 	}
-	m := make([]float64, attributes.EndStatType)
+	c.Core.Events.Subscribe(event.OnInitialize, func(args ...any) {
+		c.a4Ticker()
+	}, a4Key)
+	c.Core.Events.Subscribe(event.OnCharacterSwap, func(args ...any) {
+		c.a4Update()
+	}, a4Key)
+}
 
-	// only give buff to other moonsign chars
-	for _, char := range c.Core.Player.Chars() {
-		if char.Moonsign == 0 {
-			continue
-		}
-		if char.Index() == c.Index() {
-			continue
-		}
-		char.AddStatMod(character.StatMod{
-			Base:         modifier.NewBaseWithHitlag(a4Key, -1),
-			AffectedStat: attributes.EM,
-			Amount: func() []float64 {
-				if c.Core.Player.Active() != char.Index() {
-					return nil
-				}
+func (c *char) a4Ticker() {
+	c.a4Update()
+	c.Core.Tasks.Add(c.a4Ticker, 30)
+}
 
-				m[attributes.EM] = c.TotalDef(true) * 0.05
-				return m
-			},
-		})
+func (c *char) a4Update() {
+	if c.Base.Ascension < 4 {
+		return
 	}
-
-	// give buff to self
-	c.AddStatMod(character.StatMod{
-		Base:         modifier.NewBaseWithHitlag(a4Key, -1),
+	target := c.Core.Player.ActiveChar()
+	if target.Moonsign == 0 {
+		target = c.CharWrapper
+	}
+	m := make([]float64, attributes.EndStatType)
+	m[attributes.EM] = c.TotalDef(true) * 0.05
+	// The dump refreshes a 1s modifier on the selected recipient every 0.5s.
+	// A previous recipient keeps its last application until that expires.
+	target.AddStatMod(character.StatMod{
+		Base:         modifier.NewBase(a4Key, 60),
 		AffectedStat: attributes.EM,
-		Amount: func() []float64 {
-			if c.Core.Player.ActiveChar().Moonsign > 0 && c.Core.Player.Active() != c.Index() {
-				return nil
-			}
-
-			m[attributes.EM] = c.TotalDef(true) * 0.05
-			return m
-		},
+		Extra:        true,
+		Amount:       func() []float64 { return m },
 	})
 }
 

@@ -13,6 +13,10 @@ type AttackEvent struct {
 	SourceFrame int            // source frame
 	Callbacks   []AttackCBFunc `json:"-"`
 	Reacted     bool           // true if a reaction already took place - for purpose of attach/refill
+	// SharedDamageBonuses caches once-per-hit bonuses across target copies and
+	// special-reaction contributors. Initialize before copying the attack; a new
+	// hit must use a fresh map, even when multiple hits occur in the same frame.
+	SharedDamageBonuses map[string]float64 `json:"-"`
 }
 
 type AttackCB struct {

@@ -60,7 +60,7 @@ func (r *Reactable) TryAddLCr(a *info.AttackEvent) bool {
 	} else if r.core.Flags.Custom[lcrCountKey] >= 3 && r.core.Status.Duration(moondriftHarmonyICDKey) == 0 {
 		// trigger three attacks
 		r.core.Flags.Custom[lcrCountKey] -= 3
-		r.core.Events.Emit(event.OnMoondriftHarmony, r.self, &a)
+		r.core.Events.Emit(event.OnMoondriftHarmony, r.self, a)
 		r.core.Log.NewEvent("Moondrift Harmony triggered", glog.LogElementEvent, a.Info.ActorIndex)
 		r.core.Status.Add(moondriftHarmonyICDKey, lcrHitmarks[len(lcrHitmarks)-1])
 		r.DoLCrAttack(a.Info.ActorIndex)
@@ -148,6 +148,9 @@ func DoLCrAttackWithContrib(contribMap [info.MaxChars]bool, target info.Target, 
 
 func doSingleLCrAttack(contribMap [info.MaxChars]bool, target info.Target, core *core.Core, owner int) {
 	contributions := []lcrContribution{}
+	// All contributors belong to one damage instance. Stack-limited buffs may
+	// apply to each contribution while consuming stacks only once for this hit.
+	sharedBonuses := make(map[string]float64)
 
 	ap := combat.NewSingleTargetHit(target.Key())
 
@@ -171,10 +174,11 @@ func doSingleLCrAttack(contribMap [info.MaxChars]bool, target info.Target, core 
 		snap := char.Snapshot(&ai)
 
 		ae := info.AttackEvent{
-			Info:        ai,
-			Pattern:     ap,
-			SourceFrame: core.F,
-			Snapshot:    snap,
+			Info:                ai,
+			Pattern:             ap,
+			SourceFrame:         core.F,
+			Snapshot:            snap,
+			SharedDamageBonuses: sharedBonuses,
 		}
 
 		// Emit event so PreDamageMods can be applied to the individual LCr contributions

@@ -23,13 +23,13 @@ func init() {
 
 func (c *char) Burst(p map[string]int) (action.Info, error) {
 	src := c.Core.F
-	c.skillSrc = src
 	switch {
 	case c.StatusIsActive(skillStandardPower):
 		c.AddStatus(skillStandardPower, skillDur, false)
 	case c.StatusIsActive(skillSuperPower):
 		c.AddStatus(skillSuperPower, skillDur, false)
 	default:
+		c.skillSrc = src
 		c.AddStatus(skillSuperPower, skillDur, false)
 		c.a1OnLumi(src)
 		c.advanceSkillIndex() // the first pound pound is skipped right after summoning
@@ -48,12 +48,12 @@ func (c *char) Burst(p map[string]int) (action.Info, error) {
 		})
 	}, initialHeal)
 
-	for i := range 5 {
+	for i := range 12 {
 		c.QueueCharTask(func() {
 			heal := burstTickFlat[c.TalentLvlBurst()] + burstTickDef[c.TalentLvlBurst()]*c.TotalDef(false)
 			c.Core.Player.Heal(info.HealInfo{
 				Caller:  c.Index(),
-				Target:  -1,
+				Target:  c.Core.Player.Active(),
 				Message: "Memo: Survival Guide in Extreme Conditions (Tick)",
 				Src:     heal,
 				Bonus:   c.Stat(attributes.Heal),

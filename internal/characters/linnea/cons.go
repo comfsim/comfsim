@@ -35,34 +35,28 @@ func (c *char) c1Init() {
 		c.c1Stacks = min(c.c1Stacks+stacks, 18)
 	}, c1Key)
 
+	// ApplyAttack copies the event for each target. Share one bonus and one
+	// consumption across those copies. Multi-target consumption follows the
+	// current model assumption; the dumped native mixin is not decompiled.
+	c.Core.Events.Subscribe(event.OnApplyAttack, func(args ...any) {
+		atk := args[0].(*info.AttackEvent)
+		if atk.Info.AttackTag == attacks.AttackTagDirectLunarCrystallize {
+			atk.SharedDamageBonuses = make(map[string]float64)
+		}
+	}, c1Key)
+
 	f := func(atk *info.AttackEvent) {
-		if !c.StatusIsActive(c1Key) {
-			return
+		if atk.SharedDamageBonuses == nil {
+			atk.SharedDamageBonuses = make(map[string]float64)
 		}
-
-		maxStacks := 1
-		scaling := 0.75
-		if atk.Info.ActorIndex == c.Index() && atk.Info.Abil == skillMillionAbil {
-			maxStacks = 5
-			scaling = 1.5
+		amt, cached := atk.SharedDamageBonuses[c1Key]
+		if !cached {
+			amt = c.c1DamageBonus(atk)
+			// Cache zero as well, so a later target/contributor cannot consume
+			// stacks gained during the processing of this same hit.
+			atk.SharedDamageBonuses[c1Key] = amt
 		}
-
-		c6stacks, c6scale := c.c6C1Mult()
-		maxStacks *= c6stacks
-		scaling *= c6scale
-
-		if c.c1Stacks > 0 {
-			def := c.TotalDef(false)
-			stacks := min(c.c1Stacks, maxStacks)
-			amt := def * scaling * float64(stacks)
-			if c.Core.Flags.LogDebug {
-				c.Core.Log.NewEvent("Linnea C1 proc dmg add", glog.LogPreDamageMod, atk.Info.ActorIndex).
-					Write("addition", amt).
-					Write("Field Catalog stacks left", c.c1Stacks)
-			}
-			atk.Info.FlatDmg += amt
-			c.c1Stacks -= stacks
-		}
+		atk.Info.FlatDmg += amt
 	}
 
 	c.Core.Events.Subscribe(event.OnEnemyHit, func(args ...any) {
@@ -85,6 +79,27 @@ func (c *char) c1Init() {
 	}, c1Key)
 }
 
+func (c *char) c1DamageBonus(atk *info.AttackEvent) float64 {
+	if !c.StatusIsActive(c1Key) || c.c1Stacks == 0 {
+		return 0
+	}
+	maxStacks, scaling := 1, 0.75
+	if atk.Info.ActorIndex == c.Index() && atk.Info.Abil == skillMillionAbil {
+		maxStacks, scaling = 5, 1.5
+	}
+	consumeFactor, damageFactor := c.c6C1Mult()
+	stacks := min(c.c1Stacks, maxStacks*consumeFactor)
+	amt := c.TotalDef(false) * scaling * damageFactor * float64(stacks)
+	c.c1Stacks -= stacks
+	if c.Core.Flags.LogDebug {
+		c.Core.Log.NewEvent("Linnea C1 proc dmg add", glog.LogPreDamageMod, atk.Info.ActorIndex).
+			Write("addition", amt).
+			Write("Field Catalog stacks consumed", stacks).
+			Write("Field Catalog stacks left", c.c1Stacks)
+	}
+	return amt
+}
+
 func (c *char) c1OnSkill() {
 	if c.Base.Cons < 1 {
 		return
@@ -93,7 +108,7 @@ func (c *char) c1OnSkill() {
 		c.c1Stacks = 0
 	}
 	c.AddStatus(c1Key, 10*60, true)
-	c.c1Stacks = min(c.c1Stacks+6, 18)
+	c.c1Stacks = min(c.c1Stacks+c.c6C1Stacks(), 18)
 }
 
 func (c *char) c2Init() {
@@ -114,7 +129,7 @@ func (c *char) c2Init() {
 			case attributes.Geo:
 			case attributes.Hydro:
 			default:
-				return
+				continue
 			}
 			char.AddStatMod(character.StatMod{
 				Base:         modifier.NewBaseWithHitlag(c2Key, 8*60),
@@ -134,7 +149,7 @@ func (c *char) c2MillionTonCDBonus(snap *info.Snapshot) {
 	snap.Stats[attributes.CD] += 1.5
 }
 
-func (c *char) c2TriggerMoonDrift() {
+func (c *char) c2TriggerMoonDrift(atk *info.AttackEvent) {
 	if c.Base.Cons < 2 {
 		return
 	}
@@ -151,7 +166,9 @@ func (c *char) c2TriggerMoonDrift() {
 		}
 		contribMap[char.Index()] = true
 	}
-	reactable.DoLCrAttackWithContrib(contribMap, c.Core.Combat.PrimaryTarget(), c.Core, c.Index())
+	target := c.Core.Combat.PrimaryTarget()
+	c.Core.Events.Emit(event.OnMoondriftHarmony, target, atk)
+	reactable.DoLCrAttackWithContrib(contribMap, target, c.Core, c.Index())
 	c.Core.Log.NewEvent("Linnea C2 Lunar Crystallize attack triggered", glog.LogElementEvent, c.Index())
 }
 
@@ -185,6 +202,8 @@ func (c *char) c4Init() {
 				return m
 			},
 		})
+		// The dump explicitly refreshes A4 after applying the C4 DEF buff.
+		c.a4Update()
 	}, c4Key)
 }
 
@@ -199,7 +218,8 @@ func (c *char) c6C1Mult() (int, float64) {
 	if c.Base.Cons < 6 {
 		return 1, 1.0
 	}
-	return 2, 1.5
+	// Dump parameters: consume twice as many stacks, at 0.75x damage per stack.
+	return 2, 0.75
 }
 
 func (c *char) c6Init() {
