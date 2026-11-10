@@ -1,4 +1,4 @@
-app = 'comfsim-main'
+app = 'comfsim-linnea'
 primary_region = 'fra'
 
 [build]
