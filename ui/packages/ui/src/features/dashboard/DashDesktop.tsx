@@ -18,8 +18,8 @@ export function DashDesktop() {
 					className="mb-[18px]"
 					title={t("dash.whats_new")}
 					subtitle={t("dash.whats_new_sub")}
-					linkLabel={t("dash.all_releases")}
-					linkHref="https://github.com/genshinsim/gcsim/releases"
+					linkLabel={"All commits"}
+					linkHref="https://github.com/comfsim/comfsim/commits"
 				/>
 				<div className="grid grid-cols-1 gap-g-base-lg pb-g-section md:grid-cols-[1.1fr_0.9fr]">
 					<WhatsNew />

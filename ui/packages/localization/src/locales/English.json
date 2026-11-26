@@ -86,7 +86,7 @@
 		"full_changelog": "Full changelog",
 		"latest_release_label": "latest release",
 		"community_title": "Built by the community",
-		"community_body": "gcsim is open source and volunteer-run. Contributors welcome.",
+		"community_body": "gcsim and comfsim open source and volunteer-run. Contributors welcome.",
 		"join_discord": "Join the Discord",
 		"github": "GitHub",
 		"shared_title": "Shared by others, courtesy of KQM DB",
@@ -171,7 +171,7 @@
 		"physical": "Physical"
 	},
 	"footer": {
-		"gcsim_is_not": "gcsim is not affiliated with miHoYo. Genshin Impact, game content and materials are trademarks and copyrights of miHoYo."
+		"gcsim_is_not": "gcsim and comfsim are not affiliated with miHoYo. Genshin Impact, game content and materials are trademarks and copyrights of miHoYo."
 	},
 	"importer": {
 		"import_success": "GOOD data imported successfully"

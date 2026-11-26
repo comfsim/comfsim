@@ -24,6 +24,7 @@ export function CommunityCta({ className }: { className?: string }) {
 				{t("dash.community_body")}
 			</p>
 			<div className="flex flex-wrap gap-g-base-lg">
+				{/*
 				<Button asChild>
 					<a
 						href="https://discord.gg/kthS9wc46f"
@@ -33,13 +34,23 @@ export function CommunityCta({ className }: { className?: string }) {
 						<FaDiscord /> {t("dash.join_discord")}
 					</a>
 				</Button>
+				*/}
+				<Button asChild variant="outline">
+					<a
+						href="https://github.com/comfsim/comfsim"
+						target="_blank"
+						rel="noreferrer"
+					>
+						<AiFillGithub /> {t("dash.github")}
+					</a>
+				</Button>
 				<Button asChild variant="outline">
 					<a
 						href="https://github.com/genshinsim/gcsim"
 						target="_blank"
 						rel="noreferrer"
 					>
-						<AiFillGithub /> {t("dash.github")}
+						<AiFillGithub /> {t("dash.github") + " (upstream)"}
 					</a>
 				</Button>
 			</div>

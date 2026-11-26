@@ -5,6 +5,7 @@ export type Theme = {
 };
 
 export const THEMES: Theme[] = [
+	{ id: "wondermaid", name: "Wondermaid", light: false },
 	{ id: "cryo", name: "Cryo", light: false },
 	{ id: "abyss-d", name: "Abyss", light: false },
 	{ id: "abyss-l", name: "Abyss", light: true },
@@ -22,7 +23,7 @@ export const THEMES: Theme[] = [
 	{ id: "lantern", name: "Lantern", light: true },
 ];
 
-export const DEFAULT_THEME_ID = "cryo";
+export const DEFAULT_THEME_ID = "wondermaid";
 
 export function getTheme(id: string): Theme {
 	return (

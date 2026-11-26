@@ -65,8 +65,44 @@
 	--g-bw: 1px;
 }
 
-/* Palettes. Default = Cryo on bare :root; the other 14 under [data-theme]. */
+/* Palettes. Default = Wondermaid on bare :root; the other 14 under [data-theme]. */
 :root,
+[data-theme="wondermaid"] {
+	color-scheme: dark;
+	--g-bg: #120d0f;
+	--g-surface: #1d1518;
+	--g-surface-2: #2a1e21;
+	--g-surface-3: #39292b;
+	--g-border: #4b3637;
+	--g-border-soft: #302326;
+	--g-text: #f7f0e8;
+	--g-text-dim: #c4b2a8;
+	--g-text-mute: #8e7771;
+	--g-accent: #d95655;
+	--g-accent-hover: #f17670;
+	--g-accent-fg: #1b0b0b;
+	--g-accent-weak: #351c20;
+	--g-success: #78b982;
+	--g-warning: #e5b653;
+	--g-danger: #e45c56;
+	--g-anemo: #75d2b2;
+	--g-geo: #e8b64e;
+	--g-electro: #b764d6;
+	--g-hydro: #3e9bf0;
+	--g-pyro: #e8563c;
+	--g-cryo: #a8c9e8;
+	--g-dendro: #a8ce3e;
+	/* Shared series palette, defined once here for every theme; order is
+	   load-bearing (safest→clashiest vs element colors). See issue #3036. */
+	--g-s1: #cc79a7;
+	--g-s2: #f0e442;
+	--g-s3: #d55e00;
+	--g-s4: #56b4e9;
+	--g-s5: #e69f00;
+	--g-s6: #009e73;
+	--g-s7: #0072b2;
+}
+
 [data-theme="cryo"] {
 	color-scheme: dark;
 	--g-bg: #080c14;
@@ -92,15 +128,6 @@
 	--g-pyro: #e8563c;
 	--g-cryo: #7fb4ef;
 	--g-dendro: #a8ce3e;
-	/* Shared series palette, defined once here for every theme; order is
-	   load-bearing (safest→clashiest vs element colors). See issue #3036. */
-	--g-s1: #cc79a7;
-	--g-s2: #f0e442;
-	--g-s3: #d55e00;
-	--g-s4: #56b4e9;
-	--g-s5: #e69f00;
-	--g-s6: #009e73;
-	--g-s7: #0072b2;
 }
 
 [data-theme="abyss-d"] {

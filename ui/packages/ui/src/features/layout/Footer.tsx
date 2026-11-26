@@ -33,16 +33,7 @@ export default () => {
 					<IconContext.Provider value={{ size: "32px", color: "inherit" }}>
 						<a
 							className={linkClass}
-							href="https://discord.gg/m7jvjdxx7q"
-							target="_blank"
-							rel="noreferrer"
-						>
-							<FaDiscord />
-							<span>Discord</span>
-						</a>
-						<a
-							className={linkClass}
-							href="https://github.com/genshinsim/gsim"
+							href="https://github.com/comfsim/comfsim"
 							target="_blank"
 							rel="noreferrer"
 						>
@@ -51,12 +42,21 @@ export default () => {
 						</a>
 						<a
 							className={linkClass}
+							href="https://github.com/genshinsim/gsim"
+							target="_blank"
+							rel="noreferrer"
+						>
+							<AiFillGithub />
+							<span>GitHub (upstream)</span>
+						</a>
+						<a
+							className={linkClass}
 							href="https://ko-fi.com/srliao"
 							target="_blank"
 							rel="noreferrer"
 						>
 							<SiKofi />
-							<span>Ko-Fi</span>
+							<span>Ko-Fi (upstream)</span>
 						</a>
 					</IconContext.Provider>
 				</div>

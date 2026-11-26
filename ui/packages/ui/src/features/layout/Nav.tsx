@@ -31,24 +31,25 @@ function useNavLinks(): NavLink[] {
 			icon: <FaCalculator />,
 			text: t("nav.simulator"),
 		},
-		{
-			key: "doc",
-			href: "https://docs.gcsim.app",
-			icon: <IoIosDocument size="24px" />,
-			text: t("nav.documentation"),
-		},
+		// {
+		// 	key: "doc",
+		// 	href: "https://docs.gcsim.app",
+		// 	icon: <IoIosDocument size="24px" />,
+		// 	text: t("nav.documentation"),
+		// },
 		{
 			key: "update",
-			href: "https://github.com/genshinsim/gcsim/releases",
+			href: "https://github.com/comfsim/comfsim/commits",
 			icon: <MdOutlineUpdate size="24px" />,
-			text: t("nav.releases"),
+			// text: t("nav.releases"),
+			text: "Changes",
 		},
-		{
-			key: "discord",
-			href: "https://discord.gg/m7jvjdxx7q",
-			icon: <FaDiscord size="24px" />,
-			text: "Discord",
-		},
+		// {
+		// 	key: "discord",
+		// 	href: "https://discord.gg/m7jvjdxx7q",
+		// 	icon: <FaDiscord size="24px" />,
+		// 	text: "Discord",
+		// },
 	];
 }
 
@@ -131,7 +132,7 @@ export default () => {
 							alt=""
 							className="m-auto mr-2 max-h-[75%] object-scale-down"
 						/>
-						<span className="font-medium font-g-mono">gcsim</span>
+						<span className="font-medium font-g-mono">comfsim</span>
 					</Link>
 
 					<Separator

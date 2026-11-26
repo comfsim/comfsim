@@ -28,8 +28,8 @@ export function DashMobile() {
 							className="mb-4"
 							title={t("dash.whats_new")}
 							subtitle={t("dash.whats_new_sub")}
-							linkLabel={t("dash.all_releases")}
-							linkHref="https://github.com/genshinsim/gcsim/releases"
+							linkLabel={"All commits"}
+							linkHref="https://github.com/comfsim/comfsim/commits"
 						/>
 						<WhatsNew className="g-m-fade-card mb-[14px]" />
 						<CommunityCta className="mb-g-section" />
@@ -43,11 +43,13 @@ export function DashMobile() {
 								<Play /> {t("dash.open_simulator")}
 							</Link>
 						</Button>
+						{/*
 						<Button asChild variant="outline">
 							<a href="https://docs.gcsim.app">
 								<BookOpen /> {t("dash.docs")}
 							</a>
 						</Button>
+						*/}
 					</div>
 				</div>
 			</div>

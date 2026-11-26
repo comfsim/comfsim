@@ -33,11 +33,13 @@ export function Hero() {
 							<Play /> {t("dash.open_simulator")}
 						</Link>
 					</Button>
+					{/*
 					<Button asChild size="lg" variant="outline">
 						<a href="https://docs.gcsim.app">
 							<BookOpen /> {t("dash.read_the_docs")}
 						</a>
 					</Button>
+					*/}
 				</div>
 			</div>
 		</section>
