@@ -41,6 +41,7 @@ export default (_env: ConfigEnv) => {
 			},
 		},
 		server: {
+    	allowedHosts: true, // or ["domain-entry.com"] // CORS?  
 			proxy: {
 				"/api": {
 					target: "https://gcsim.app",

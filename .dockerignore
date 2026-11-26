@@ -1,0 +1,195 @@
+# flyctl launch added from .gitignore
+**/*.log
+**/*.csv
+**/*.exe
+**/*.pdf
+**/*.pprof
+**/.DS_Store
+*.txt
+**/*.out
+!**/.keep
+**/out.json
+**/debug.html
+**/internal/characters/replace.txt
+**/.idea
+**/*.wasm
+**/**.zip
+**/cmd/gcsim/*.exe
+**/cmd/gcsim/gsim.exe
+**/cmd/gcsim/gsim
+**/cmd/gcsim/*.html
+**/cmd/gcsim/tests
+**/cmd/gcsim/*.gz
+**/cmd/gcsim/*.json
+**/cmd/gcsim/gcsim
+!**/release-notes.txt
+**/.env
+**/.envrc
+**/.direnv
+**/**/protos_gen
+**/pipeline/_cache
+**/pipeline/_compiled.spec.yml
+**/pipeline/data
+**/keys.json
+**/pkg/sharekey/key_embedded.go
+**/tagger_mapping.json
+app/*
+**/cmd/gcsim/run_optimizer_full.bat
+**/backend/docker/hash.txt
+**/backend/docker/binary
+**/.cache
+**/.npm
+**/.pnpm-store
+**/node_modules
+**/.task
+**/.venv
+# TS incremental typecheck cache (emitted by `pnpm -r typecheck`)
+**/*.tsbuildinfo
+# release binaries to avoid tinting repo
+**/gcsim_windows_arm64.exe
+**/gcsim_windows_amd64.exe
+**/gcsim_darwin_arm64
+**/gcsim_darwin_amd64
+**/gcsim_linux_arm64
+**/gcsim_linux_amd64
+**/server_windows_arm64.exe
+**/server_windows_amd64.exe
+**/server_darwin_arm64
+**/server_darwin_amd64
+**/server_linux_arm64
+**/server_linux_amd64
+**/.venv
+
+# flyctl launch added from .jj/.gitignore
+.jj/*
+
+# flyctl launch added from backend/cmd/jadechamber/.gitignore
+backend/cmd/jadechamber/**/data
+
+# flyctl launch added from cmd/dbcompare/.gitignore
+cmd/dbcompare/**/data
+
+# flyctl launch added from cmd/gcsim/.gitignore
+cmd/gcsim/**/*.txt
+cmd/gcsim/**/*.gz
+cmd/gcsim/**/*.json
+
+# flyctl launch added from cmd/repl/.gitignore
+cmd/repl/**/*.gcs
+
+# flyctl launch added from cmd/services/assets/.gitignore
+cmd/services/assets/**/cache
+cmd/services/assets/**/assets
+
+# flyctl launch added from cmd/wasm/.gitignore
+cmd/wasm/**/dist
+
+# flyctl launch added from pkg/simulation/example/.gitignore
+pkg/simulation/example/**/*.json
+
+# flyctl launch added from scripts/dbsnapshot/.gitignore
+scripts/dbsnapshot/**/*.ss
+
+# flyctl launch added from ui/packages/components/.gitignore
+# Logs
+ui/packages/components/**/logs
+ui/packages/components/**/*.log
+ui/packages/components/**/npm-debug.log*
+ui/packages/components/**/yarn-debug.log*
+ui/packages/components/**/yarn-error.log*
+ui/packages/components/**/pnpm-debug.log*
+ui/packages/components/**/lerna-debug.log*
+
+ui/packages/components/**/node_modules
+ui/packages/components/**/dist
+ui/packages/components/**/dist-ssr
+ui/packages/components/**/*.local
+
+# Editor directories and files
+ui/packages/components/**/.vscode/*
+!ui/packages/components/**/.vscode/extensions.json
+ui/packages/components/**/.idea
+ui/packages/components/**/.DS_Store
+ui/packages/components/**/*.suo
+ui/packages/components/**/*.ntvs*
+ui/packages/components/**/*.njsproj
+ui/packages/components/**/*.sln
+ui/packages/components/**/*.sw?
+
+ui/packages/components/**/*storybook.log
+
+# flyctl launch added from ui/packages/db/.gitignore
+ui/packages/db/**/dist
+ui/packages/db/**/stats.html
+
+# flyctl launch added from ui/packages/docs/.gitignore
+# Dependencies
+ui/packages/docs/node_modules
+
+# Production
+ui/packages/docs/build
+
+# Generated files
+ui/packages/docs/**/.docusaurus
+ui/packages/docs/**/.cache-loader
+
+# Misc
+ui/packages/docs/**/.DS_Store
+ui/packages/docs/**/.env.local
+ui/packages/docs/**/.env.development.local
+ui/packages/docs/**/.env.test.local
+ui/packages/docs/**/.env.production.local
+
+ui/packages/docs/**/npm-debug.log*
+ui/packages/docs/**/yarn-debug.log*
+ui/packages/docs/**/yarn-error.log*
+
+# flyctl launch added from ui/packages/e2e/.gitignore
+ui/packages/e2e/**/node_modules
+ui/packages/e2e/**/playwright-report
+ui/packages/e2e/**/test-results
+ui/packages/e2e/**/blob-report
+ui/packages/e2e/**/.playwright
+
+# flyctl launch added from ui/packages/storybook/.gitignore
+# Logs
+ui/packages/storybook/**/logs
+ui/packages/storybook/**/*.log
+ui/packages/storybook/**/npm-debug.log*
+ui/packages/storybook/**/yarn-debug.log*
+ui/packages/storybook/**/yarn-error.log*
+ui/packages/storybook/**/pnpm-debug.log*
+ui/packages/storybook/**/lerna-debug.log*
+
+ui/packages/storybook/**/node_modules
+ui/packages/storybook/**/dist
+ui/packages/storybook/**/dist-ssr
+ui/packages/storybook/**/*.local
+
+# Editor directories and files
+ui/packages/storybook/**/.vscode/*
+!ui/packages/storybook/**/.vscode/extensions.json
+ui/packages/storybook/**/.idea
+ui/packages/storybook/**/.DS_Store
+ui/packages/storybook/**/*.suo
+ui/packages/storybook/**/*.ntvs*
+ui/packages/storybook/**/*.njsproj
+ui/packages/storybook/**/*.sln
+ui/packages/storybook/**/*.sw?
+
+ui/packages/storybook/**/*storybook.log
+ui/packages/storybook/**/storybook-static
+
+# flyctl launch added from ui/packages/ui/.gitignore
+ui/packages/ui/**/dist
+ui/packages/ui/**/*.tsbuildinfo
+
+# flyctl launch added from ui/packages/web/.gitignore
+ui/packages/web/**/dist
+ui/packages/web/**/stats.html
+
+# flyctl launch added from ui/packages/workers/.gitignore
+ui/packages/workers/**/.wrangler
+ui/packages/workers/**/*.tsbuildinfo
+
+deploy/fly/**
